@@ -1,9 +1,12 @@
 <?php
 $bdd = new PDO ('mysql:host=localhost;dbname=administration_troc;', 'root', '');
-if(!$_SESSION['mdp'])
-{
-    header('Location: connexion.php');
-}
+
+// condition d'acces a cette page : existance de session['mdp']
+
+// if(!$_SESSION['mdp'])
+// {
+//     header('Location: connexion.php');
+// }
 ?>
 <!-- page html envoie (le titre de l'annonce + description annonce + photo article) a la page annonce_a_verifier -->
 <!DOCTYPE html>
@@ -16,7 +19,7 @@ if(!$_SESSION['mdp'])
 <body>
     <div align="center">
        <h2>Créez votre annonce</h2>
-       <form method="post" action="annonce_a_verifier.php">
+       <form method="post" action="annonce_a_verifier.php" enctype="multipart/form-data" >
           <table>
              <tr>
                  <td align="right"><label for="titre">titre :</label></td> 
@@ -26,13 +29,14 @@ if(!$_SESSION['mdp'])
                  <td align="right"><label for="description">Description de l'annonce :</label></td> 
                  <td><textarea id="description" name="description" placeholder="décriez l'article en questions, et les modalités des transactions desirées"></textarea></td>
              </tr>
+             <!-- TELECHARGEMENT PHOTO -->
              <tr>
-                 <td align="right"><label for="photo">ajouter photo</label></td> 
-                 <td><input id="photo" name="photo" placeholder="jpeg,png,pdf"></td>
+                 <td align="right"><label for="file">ajouter photo</label></td> 
+                 <td><input type="file" id="file" name="file" placeholder="jpeg,png,jpg,gif"></td>
              </tr>
              <tr>
                 <td></td>
-                <td align="center"></br><button type="submit" name="envoi">envoyer</button></td>
+                <td align="left"></br><button type="submit" name="envoi_file">envoyer</button></td>
              </tr>
          </table>
       </form>

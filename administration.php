@@ -20,6 +20,7 @@ if(!$_SESSION['mdp'])
 </head>
 <body>
     <a href="membres.php">Afficher tous les membres</a>
+    <a href="annonce_a_verifier.php">Annoces à vérifier</a>
     
 </body>
 </html>

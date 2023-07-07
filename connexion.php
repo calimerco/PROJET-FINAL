@@ -11,15 +11,21 @@ if(isset($_POST['valider']))
         $mdp_saisi = htmlspecialchars($_POST['mdp']);
 
         if($pseudo_saisi == $pseudo_par_defaut AND $mdp_saisi == $mdp_par_defaut)
-        // creer le varSESSION mdp ppour retser connecté sur les autres pages
+        // creer la varSESSION mdp pour retser connecté sur les autres pages
         {
             $_SESSION['mdp'] = $mdp_saisi;
+            // récuper id_user du tablo users et le stocker dans la  $_SESSION['id_user']
+            $id_user = query  (SELECT 'id_user' FROM 'users' where mdp=$mdp_saisi);
+            $_SESSION['id_user'] = $id_user;
             // rediriger l'utilisateur vers l'espace administration
             header('Location: administration.php');
         }
         else
         {
-            $erreur = "Vous n'avez pas le droit d'accés à l'espace administrateur!";
+            $id_user = query  (SELECT 'id_user' FROM 'users' where mdp=$mdp_saisi);
+            $_SESSION['id_user'] = $id_user;
+            // $erreur = "Vous n'avez pas le droit d'accés à l'espace administrateur!";
+            header('Location: mon_profil.php');
         }
 
     }
@@ -49,7 +55,7 @@ else
        <br/><br/>
        <form method="post" action="">
           <input type="text" name="pseudo" placeholder="Pseudo" autocomplete="off" />
-          <input type="password" name="mdp" placeholder="Mot de passe" />
+          <input type="password" name="mdp" placeholder="Mot de passe" autocomplete="off"/>
           <input type="submit" name="valider" value="Se connecter !" />
          
        </form>
